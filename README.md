@@ -117,9 +117,10 @@ FLYTEAM1_INIT_HP=300
 FLYTEAM1_INIT_DAMAGE=200
 NUM_STEPS=100
 ```
+---
 
 ## 🏗 Project Structure
-.
+```
 ├── dragon.h        # Class declarations
 ├── dragon.cpp      # Class implementations
 ├── main.cpp        # Provided driver (unchanged)
@@ -129,12 +130,17 @@ NUM_STEPS=100
 ├── README.md       # Project documentation
 └── .gitignore
 
+```
+
+---
+
 ## 🚀 How to Compile & Run
 
 ### Compile (Unix environment)
 
 ```bash
-g++ -std=c++11 -Wall -Wextra main.cpp dragon.cpp -o dragon```
+g++ -std=c++11 -Wall -Wextra main.cpp dragon.cpp -o dragon
+```
 
 ### Run
 
@@ -144,6 +150,6 @@ g++ -std=c++11 -Wall -Wextra main.cpp dragon.cpp -o dragon```
 
 ⚠ The assignment is evaluated on Unix.
 
----
+
 
 
