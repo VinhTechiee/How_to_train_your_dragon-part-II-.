@@ -1,155 +1,253 @@
-# 🐉 Dragon Warriors  
-### How to Train Your Dragon – Part II
+# Dragon Warriors
+## How to Train Your Dragon – Part II
 
 ---
 
-## 📖 Project Overview
+## Project Overview
 
-**Dragon Warriors** is a turn-based simulation project implemented in **C++**, inspired by the assignment  
-**“How to Train Your Dragon – Part II”**.
+Dragon Warriors is a turn-based simulation system implemented in C++.  
+The project is inspired by the assignment *How to Train Your Dragon – Part II* from Ho Chi Minh City University of Technology (HCMUT).
 
-The project simulates a battle on a 2D grid map between multiple warrior teams and a central boss — the **DragonLord**.  
-All entities follow predefined movement rules, interact with obstacles, use items, and make strategic decisions over a fixed number of steps.
+The program simulates a battle scenario on a two-dimensional grid map where multiple warrior teams attempt to defeat a central boss entity known as the DragonLord. Each entity follows predefined movement rules, interacts with environmental obstacles, and participates in combat events throughout a fixed number of simulation steps.
 
-The implementation strictly follows:
-- Object-Oriented Programming principles
-- Manual memory management (no STL containers)
-- The official assignment specification provided by HCMUT
+The implementation demonstrates the application of object-oriented programming principles, manual memory management, and configuration-driven simulation design.
 
 ---
 
-## 🎯 Objectives
+## Learning Objectives
 
-- Practice **Object-Oriented Programming (OOP)** in C++
-- Apply **inheritance, polymorphism, and abstraction**
-- Implement **dynamic memory management**
-- Work with **file-based configuration input**
-- Build a complete simulation system from scratch
+This project aims to reinforce several core programming concepts:
 
----
-
-## 🎮 Game Entities
-
-### 🛩 FlyTeams
-- **FlyTeam1** and **FlyTeam2**
-- Move according to predefined movement rules (`L, R, U, D`)
-- Can attack SmartDragons and defeat the DragonLord
-
-### 🧱 GroundTeam
-- Moves on the ground with its own movement rules
-- Can **trap the DragonLord** for a number of turns
-- Can pass **ground obstacles** if damage is sufficient
-
-### 🐲 DragonLord
-- Main boss of the simulation
-- Moves based on the positions of FlyTeam1 and FlyTeam2
-- Spawns **SmartDragons** periodically
-
-### 🧠 SmartDragons
-- **SD1, SD2, SD3**
-- Spawn dynamically during the game
-- Chase specific targets using Manhattan distance logic
-- Drop items when defeated
+- Object-Oriented Programming in C++
+- Use of inheritance, polymorphism, and abstraction
+- Manual memory management without the use of STL containers
+- Design of configuration-based simulation systems
+- Implementation of modular and extensible program architectures
 
 ---
 
-## 🗺 Map & Environment
+## Simulation Overview
 
-The game map is a 2D grid consisting of:
+The system models a grid-based environment where entities move and interact according to predefined rules. During each simulation step, entities perform movement, combat actions, item interactions, and event processing.
 
-| Element Type        | Description |
-|--------------------|-------------|
-| `PATH`             | Walkable cell |
-| `OBSTACLE`         | Completely blocked cell |
-| `GROUND_OBSTACLE`  | Passable only if GroundTeam damage is high enough |
+Major components of the simulation include:
 
-Each movement must be validated against the map constraints.
+- Warrior movement and traversal logic
+- Dragon encounters and combat resolution
+- Item usage and inventory management
+- SmartDragon spawning
+- Trap mechanics applied to the DragonLord
+- Victory condition evaluation
 
 ---
 
-## 🎒 Items & Bag System
+## Game Entities
+
+### FlyTeams
+
+Two aerial warrior teams participate in the simulation:
+
+- FlyTeam1
+- FlyTeam2
+
+These entities are capable of:
+
+- Moving according to predefined movement rules (`L`, `R`, `U`, `D`)
+- Engaging SmartDragons in combat
+- Participating in the final battle against the DragonLord
+
+---
+
+### GroundTeam
+
+The GroundTeam represents a ground-based warrior unit with specialized capabilities:
+
+- Movement across the map grid
+- Ability to trap the DragonLord for a number of turns
+- Capability to pass Ground Obstacles when sufficient damage is available
+
+---
+
+### DragonLord
+
+The DragonLord is the central boss entity in the simulation.
+
+Characteristics include:
+
+- Movement behavior influenced by the positions of FlyTeam1 and FlyTeam2
+- Periodic spawning of SmartDragon entities
+- Acting as the final objective of the simulation
+
+---
+
+### SmartDragons
+
+SmartDragons are dynamically generated enemy entities.
+
+Properties include:
+
+- Periodic spawning from the DragonLord
+- Target pursuit using Manhattan distance
+- Item drops when defeated
+
+---
+
+## Map and Environment
+
+The simulation environment is represented as a two-dimensional grid consisting of multiple terrain types.
+
+| Cell Type | Description |
+|----------|-------------|
+| PATH | Walkable terrain |
+| OBSTACLE | Completely blocked cell |
+| GROUND_OBSTACLE | Passable only by GroundTeam when sufficient damage is available |
+
+All entity movements must respect these environmental constraints.
+
+---
+
+## Item System
+
+Warrior entities may acquire and utilize items during the simulation.
 
 ### Item Types
-- **DragonScale** – increases damage
-- **HealingHerb** – restores HP
-- **TrapEnhancer** – enhances trap duration
+
+| Item | Description |
+|-----|-------------|
+| DragonScale | Increases attack damage |
+| HealingHerb | Restores health points |
+| TrapEnhancer | Extends trap duration |
 
 ### Bag System
-- Each warrior owns a `BaseBag`
-- Items are automatically used when possible
-- `TeamBag` manages bags at team level
+
+Each warrior owns an inventory container called `BaseBag`.  
+Items are automatically used when applicable.  
+A higher-level structure, `TeamBag`, manages item distribution across the team.
 
 ---
 
-## 🔁 Game Mechanics
+## Simulation Flow
 
-- Turn-based simulation
-- Loop detection:
-  - If an entity repeats movement patterns → eliminated
-- SmartDragon creation every fixed number of DragonLord moves
-- Interaction handling:
-  - Warrior vs SmartDragon
-  - GroundTeam vs DragonLord (trap)
-  - FlyTeam vs DragonLord (win condition)
+The simulation follows a turn-based execution model.
+
+```
+Load Configuration
+        ↓
+Initialize Map
+        ↓
+Spawn Entities
+        ↓
+Start Simulation Loop
+        ↓
+Entity Movement
+        ↓
+Combat Resolution
+        ↓
+Item Handling
+        ↓
+SmartDragon Spawning
+        ↓
+Check Victory Conditions
+        ↓
+Next Turn
+```
+
+During each iteration of the simulation loop, entities update their positions, interact with other entities, process combat events, and apply game mechanics.
 
 ---
 
-## ⚙️ Configuration File
+## Simulation Visualization
 
-The simulation is controlled by a **configuration file**, which defines:
+The following animation illustrates a simplified visualization of the simulation process.  
+It demonstrates entity movement, combat interactions, SmartDragon spawning events, and DragonLord trapping behavior on the grid-based map.
 
-- Map size
-- Obstacles & ground obstacles
-- Initial positions of all entities
-- HP and damage values
+![Dragon Warriors Simulation](dragon_warriors_simulation.gif)
+
+---
+
+## Configuration File
+
+The simulation environment is defined using an external configuration file that specifies the initial state and parameters of the system.
+
+The configuration file includes:
+
+- Map dimensions
+- Obstacle and terrain positions
+- Initial positions of entities
+- Health and damage parameters
 - Movement rules
-- Number of simulation steps
+- Total number of simulation steps
 
-### Example:
+Example configuration:
+
 ```text
 MAP_NUM_ROWS=10
 MAP_NUM_COLS=10
+
 NUM_OBSTACLE=2
 ARRAY_OBSTACLE=[(1,2);(3,4)]
+
 FLYTEAM1_MOVING_RULE=URDL
 FLYTEAM1_INIT_POS=(0,0)
 FLYTEAM1_INIT_HP=300
 FLYTEAM1_INIT_DAMAGE=200
+
 NUM_STEPS=100
 ```
+
 ---
 
-## 🏗 Project Structure
+## Project Structure
+
 ```
-├── dragon.h        # Class declarations
-├── dragon.cpp      # Class implementations
-├── main.cpp        # Provided driver (unchanged)
-├── main.h          # Provided header (unchanged)
-├── run.sh          # Build & run script
-├── sa_tc_01_config # Sample configuration file
-├── README.md       # Project documentation
+Dragon-Warriors
+│
+├── dragon.h
+├── dragon.cpp
+├── main.cpp
+├── main.h
+│
+├── run.sh
+├── sa_tc_01_config
+│
+├── animate_dragon_warriors.py
+├── dragon_warriors_simulation.gif
+│
+├── README.md
 └── .gitignore
-
 ```
 
 ---
 
-## 🚀 How to Compile & Run
+## Compilation and Execution
 
-### Compile (Unix environment)
+### Compilation (Unix environment)
 
 ```bash
 g++ -std=c++11 -Wall -Wextra main.cpp dragon.cpp -o dragon
 ```
 
-### Run
+### Execution
 
 ```bash
 ./dragon sa_tc_01_config
 ```
 
-⚠ The assignment is evaluated on Unix.
+The assignment is evaluated in a Unix-based environment.
 
+---
 
+## Notes
 
+- The implementation follows the official assignment constraints.
+- No STL containers are used in the implementation.
+- The program is compiled using the C++11 standard.
+- The primary simulation logic is implemented within `dragon.cpp`.
+
+---
+
+## Author
+
+Le Hien Vinh  
+Ho Chi Minh City University of Technology
 
